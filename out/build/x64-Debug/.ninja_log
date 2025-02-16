@@ -1,0 +1,4 @@
+# ninja log v6
+10	9515	7590081010184032	CMakeFiles/CUDAProject.dir/main.cu.obj	ae572e67d564e34b
+9519	12831	7590081105276030	CMakeFiles/CUDAProject.dir/cmake_device_link.obj	a0c773de5bacfbf3
+12831	13328	7590081138393589	CUDAProject.exe	4d315936ad361a4a

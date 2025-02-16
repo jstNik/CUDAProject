@@ -1,0 +1,94 @@
+{
+    "extension": "ncu-proj",
+    "files": [
+        {
+            "path": "../../profiling/profile1.ncu-rep"
+        },
+        {
+            "path": "../../profiling/profile2.ncu-rep"
+        },
+        {
+            "path": "../../profiling/profile3.ncu-rep"
+        },
+        {
+            "is_open": true,
+            "path": "../../profiling/profile4.ncu-rep"
+        }
+    ],
+    "launcher": {
+        "activity/interactiveprofile/cachecontrol": "Flush All",
+        "activity/interactiveprofile/clockcontrol": "Base",
+        "activity/interactiveprofile/cpustacksupportoptions": "Native",
+        "activity/interactiveprofile/disableprofilingstartstop": false,
+        "activity/interactiveprofile/enablecpustacksupport": true,
+        "activity/interactiveprofile/enablenvtxsupport": true,
+        "activity/interactiveprofile/enableprofilingfromstart": true,
+        "activity/interactiveprofile/graphprofiling": "Node",
+        "activity/interactiveprofile/importsource": false,
+        "activity/occupancycalculator/file": "",
+        "activity/profile/applyrules": true,
+        "activity/profile/appreplaybuffer": "File",
+        "activity/profile/appreplaymatch": "Grid",
+        "activity/profile/appreplaymode": "Strict",
+        "activity/profile/cachecontrol": "Flush All",
+        "activity/profile/checkexitcode": true,
+        "activity/profile/clockcontrol": "Base",
+        "activity/profile/cpustacksupportoptions": "Native",
+        "activity/profile/devices": "",
+        "activity/profile/disableprofilingstartstop": false,
+        "activity/profile/enablecpustacksupport": false,
+        "activity/profile/enablenvtxsupport": false,
+        "activity/profile/enableprofilingfromstart": true,
+        "activity/profile/filtermode": "Global",
+        "activity/profile/forceoverwrite": true,
+        "activity/profile/graphprofiling": "Node",
+        "activity/profile/importsource": false,
+        "activity/profile/kernelid": "",
+        "activity/profile/kernelname": "",
+        "activity/profile/kernelnamebase": "Function",
+        "activity/profile/kill": false,
+        "activity/profile/launchcapturecount": 0,
+        "activity/profile/launchskipbeforematchcount": 0,
+        "activity/profile/launchskipcount": 0,
+        "activity/profile/nvtxincludeexcludeoptions": "",
+        "activity/profile/outputfile": "C:/Users/nicco/Documents/Universita/CLionProjects/profiling/profile%i",
+        "activity/profile/pmsamplingbuffersize": 0,
+        "activity/profile/pmsamplinginterval": 0,
+        "activity/profile/pmsamplingmaxpasses": 0,
+        "activity/profile/rangefilteroptions": "",
+        "activity/profile/rangereplayoptions": "",
+        "activity/profile/replaymode": "Kernel",
+        "activity/profile/samplingBufferSize": 33554432,
+        "activity/profile/samplingInterval": 5,
+        "activity/profile/samplingIntervalAuto": true,
+        "activity/profile/samplingMaxPasses": 5,
+        "activity/profile/sourcefolders": "",
+        "activity/profile/targetprocesses": "All",
+        "activity/systemtrace/collect_gpu_ctx_sw": false,
+        "activity/systemtrace/environment/process_environment": [
+        ],
+        "activity/systemtrace/gpu_metrics/metrics_set": -1,
+        "activity/systemtrace/nvtx/range_hotkey_value": 122,
+        "activity/systemtrace/target/app_selection_method": "SpecifyProcessName",
+        "activity/systemtrace/target/attach_mode": "LaunchAnother",
+        "activity/systemtrace/target/command_line": "\"C:/Users/nicco/Documents/Universita/CLionProjects/CUDAProject/cmake-build-debug/CUDAProject.exe\" ",
+        "activity/systemtrace/target/process_name": "C:/Users/nicco/Documents/Universita/CLionProjects/CUDAProject/cmake-build-debug/CUDAProject.exe",
+        "activity/systemtrace/target/working_directory": "",
+        "platform/linux (x86_64)/device": "",
+        "platform/linux/arguments": "",
+        "platform/linux/environment": "",
+        "platform/linux/executable": "",
+        "platform/linux/workingdir": "",
+        "platform/win32/arguments": "",
+        "platform/win32/environment": "",
+        "platform/win32/executable": "C:/Users/nicco/Documents/Universita/CLionProjects/CUDAProject/cmake-build-debug/CUDAProject.exe",
+        "platform/win32/executable/history": [
+            "C:/Users/nicco/Documents/Universita/CLionProjects/CUDAProject/cmake-build-debug/CUDAProject.exe",
+            "$(ApplicationExecutable)"
+        ],
+        "platform/win32/workingdir": "",
+        "platform/windows/device": "localhost"
+    },
+    "uuid": "{a14044fd-2536-4335-a292-1c8516595c23}",
+    "version": "1.0"
+}

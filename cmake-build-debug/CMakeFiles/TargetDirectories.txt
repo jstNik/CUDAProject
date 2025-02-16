@@ -1,0 +1,3 @@
+C:/Users/nicco/Documents/Universita/CLionProjects/CUDAProject/cmake-build-debug/CMakeFiles/CUDAProject.dir
+C:/Users/nicco/Documents/Universita/CLionProjects/CUDAProject/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/nicco/Documents/Universita/CLionProjects/CUDAProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
