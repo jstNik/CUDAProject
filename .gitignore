@@ -1,0 +1,7 @@
+/main.exp
+/main.lib
+/out/
+/nsight/
+/CUDAProjectNsightCompute/
+/cmake-build-debug/
+/.idea/
