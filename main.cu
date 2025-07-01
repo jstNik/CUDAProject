@@ -273,7 +273,7 @@ __global__ void play_2_2(const unsigned char *r_board, unsigned char *w_board) {
 
 }
 
-__global__ void play_3_1(const cudaSurfaceObject_t r_obj, const cudaSurfaceObject_t w_obj, const int gen) {
+__global__ void play_3_1(const cudaSurfaceObject_t r_obj, const cudaSurfaceObject_t w_obj) {
     // Indici matrice
     const int gx = (int) threadIdx.x + blockDim.x * blockIdx.x;
     const int gy = (int) threadIdx.y + blockDim.y * blockIdx.y;
@@ -472,7 +472,7 @@ int main() {
     ));
     QueryPerformanceCounter(&start);
     for (int i = 0; i < GEN; i++) {
-        play_3_1<<<grid_size, block_size>>>(surfObj_1, surfObj_2, i);
+        play_3_1<<<grid_size, block_size>>>(surfObj_1, surfObj_2);
         CHECK(cudaDeviceSynchronize());
         swap_pointer((void**) &surfObj_1, (void**) &surfObj_2);
         swap_pointer((void**) &d_array_1, (void**) &d_array_2);
