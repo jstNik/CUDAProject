@@ -2,7 +2,6 @@
 #include <curand_kernel.h>
 #include <windows.h>
 #include <filesystem>
-#include <strstream>
 #define W 10000
 #define H 10000
 #define GEN 100
