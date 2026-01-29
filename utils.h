@@ -1,5 +1,7 @@
 #pragma once
 
+#include <float.h>
+
 #include "curand_kernel.h"
 
 #include "stdio.h"
@@ -26,11 +28,23 @@ __host__ __forceinline__ void print(const unsigned char * const board, const uns
     printf("\n\n\n");
 }
 
-__host__ __forceinline__ void getSurfaceObject(cudaSurfaceObject_t *surfObj, const cudaArray_t *array) {
-    cudaResourceDesc resDesc = {};
-    resDesc.resType = cudaResourceTypeArray;
-    resDesc.res.array.array = *array;
-    CHECK(cudaCreateSurfaceObject(surfObj, &resDesc));
+inline int compare(void const* a, void const* b) {
+
+    const double _a = *(double const *) a;
+    const double _b = *(double const *) b;
+
+    if (_a < _b) return -1;
+    if (_a > _b) return 1;
+    return 0;
+}
+
+__host__ __forceinline__ double median(double* array, int size) {
+    qsort(array, size, sizeof(double), compare);
+
+    if (size % 2 == 0) {
+        return (array[size / 2 - 1] + array[size / 2]) / 2.0;
+    }
+    return array[size / 2];
 }
 
 __host__ __forceinline__ void swap_pointer(void **ptr1, void **ptr2) {
