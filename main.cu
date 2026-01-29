@@ -1,8 +1,8 @@
 #include "utils.h"
 
-#define W 1000
-#define H 1000
-#define GEN 1
+#define W 64
+#define H 64
+#define GEN 100
 
 void launch_initialize(unsigned char *const result, const int seed, const unsigned int width,
                        const unsigned int height);
