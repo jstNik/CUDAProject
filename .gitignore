@@ -5,3 +5,4 @@
 /CUDAProjectNsightCompute/
 /cmake-build-debug/
 /.idea/
+/initialize.cu
