@@ -34,8 +34,7 @@ int main() {
     unsigned char * const initial_board = (unsigned char*) malloc(size);
     unsigned char * const result = (unsigned char*) malloc(size);
     unsigned char * const naive_result = (unsigned char*) malloc(size);
-    launch_initialize(initial_board, time(NULL), W, H);
-    // set_default_pattern(initial_board, W, H);
+    set_default_pattern(initial_board, W, H);
     // print(initial_board, W, H);
 
     double *elapsed = launch_naive(initial_board, naive_result, dim3(32, 32), 32, W, H, GEN);
