@@ -2,10 +2,7 @@
 
 #define W 1000
 #define H 1000
-#define GEN 100
-
-void launch_initialize(unsigned char *const result, const int seed, const unsigned int width,
-                       const unsigned int height);
+#define GEN 10
 
 double *launch_naive(const unsigned char *const initial_board, unsigned char *const result, const dim3 block_size,
                      const unsigned int tile_dim, const unsigned int width, const unsigned int height,
@@ -37,7 +34,11 @@ int main() {
     set_default_pattern(initial_board, W, H);
     // print(initial_board, W, H);
 
-    double *elapsed = launch_naive(initial_board, naive_result, dim3(32, 32), 32, W, H, GEN);
+    double* elapsed = launch_sequential(initial_board, naive_result, W, H, GEN);
+    printf("%.3f\n", median(elapsed, GEN));
+    free(elapsed);
+
+    elapsed = launch_naive(initial_board, naive_result, dim3(32, 32), 32, W, H, GEN);
     printf("%.3f\n", median(elapsed, GEN));
     free(elapsed);
     // print(result, W, H);

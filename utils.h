@@ -1,6 +1,7 @@
 #pragma once
 
 #include <float.h>
+#include <windows.h>
 
 #include "curand_kernel.h"
 
@@ -64,4 +65,38 @@ __host__ __forceinline__ void set_default_pattern(unsigned char * const board, c
     board[1 + 2 * width] = 1;
     board[width] = 1;
 
+}
+
+__host__ __forceinline__ double* launch_sequential(const unsigned char * const r_board, unsigned char * const w_board, const unsigned int width, const unsigned int height, const unsigned int generations) {
+
+    LARGE_INTEGER freq, start, end;
+    QueryPerformanceFrequency(&freq);
+    double* time = (double *) malloc(generations * sizeof(double));
+
+    for (unsigned int g = 0; g < generations; g++) {
+
+        QueryPerformanceCounter(&start);
+
+        for (unsigned int j = 0; j < height; j++) {
+            for (unsigned int i = 0; i < width; i++) {
+                unsigned int n = 0;
+                for (int l = -1; l < 2; l++) {
+                    for (int k = -1; k < 2; k++) {
+                        if (k == 0 && l == 0) continue;
+                        const unsigned int x = (i + k + width) % width;
+                        const unsigned int y = (j + l + height) % height;
+                        n += r_board[x + y * width];
+                    }
+                }
+                const unsigned char is_alive = r_board[i + j * width];
+                w_board[i + j * width] = is_alive == 1 && n > 1 && n < 4 ||
+                               is_alive == 0 && n == 3;
+            }
+        }
+        swap_pointer((void**) r_board, (void**) w_board);
+
+        QueryPerformanceCounter(&end);
+        time[g] = (double) (end.QuadPart - start.QuadPart) * 1000 / (double) freq.QuadPart;
+    }
+    return time;
 }
