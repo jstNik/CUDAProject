@@ -1,8 +1,11 @@
 #include "utils.h"
 
-#define W 1000
-#define H 1000
+#define W 10000
+#define H 10000
 #define GEN 10
+
+void launch_initialize(unsigned char *const result, const int seed, const unsigned int width,
+                       const unsigned int height);
 
 double *launch_naive(const unsigned char *const initial_board, unsigned char *const result, const dim3 block_size,
                      const unsigned int tile_dim, const unsigned int width, const unsigned int height,
@@ -30,38 +33,39 @@ int main() {
     const unsigned int size = W * H * sizeof(unsigned char);
     unsigned char * const initial_board = (unsigned char*) malloc(size);
     unsigned char * const result = (unsigned char*) malloc(size);
-    unsigned char * const naive_result = (unsigned char*) malloc(size);
+    unsigned char * const cpu_result = (unsigned char*) malloc(size);
     set_default_pattern(initial_board, W, H);
+    launch_initialize(result, time(NULL), W, H);
     // print(initial_board, W, H);
 
-    double* elapsed = launch_sequential(initial_board, naive_result, W, H, GEN);
+    double* elapsed = launch_sequential(initial_board, cpu_result, W, H, GEN);
     printf("%.3f\n", median(elapsed, GEN));
     free(elapsed);
 
-    elapsed = launch_naive(initial_board, naive_result, dim3(32, 32), 32, W, H, GEN);
-    printf("%.3f\n", median(elapsed, GEN));
+    elapsed = launch_naive(initial_board, result, dim3(32, 32), 32, W, H, GEN);
+    printf("%.3f - %d\n", median(elapsed, GEN), memcmp(result, cpu_result, size) == 0);
     free(elapsed);
     // print(result, W, H);
 
     elapsed = launch_naive(initial_board, result, dim3(32, 8), 32, W, H, GEN);
-    printf("%.3f - %d\n", median(elapsed, GEN), memcmp(result, naive_result, size) == 0);
+    printf("%.3f - %d\n", median(elapsed, GEN), memcmp(result, cpu_result, size) == 0);
     free(elapsed);
     // print(result, W, H);
 
     elapsed = launch_smem(initial_board, result, W, H, GEN);
-    printf("%.3f - %d\n", median(elapsed, GEN), memcmp(result, naive_result, size) == 0);
+    printf("%.3f - %d\n", median(elapsed, GEN), memcmp(result, cpu_result, size) == 0);
     free(elapsed);
 
     elapsed = launch_lin_smem(initial_board, result, W, H, GEN);
-    printf("%.3f - %d\n", median(elapsed, GEN), memcmp(result, naive_result, size) == 0);
+    printf("%.3f - %d\n", median(elapsed, GEN), memcmp(result, cpu_result, size) == 0);
     free(elapsed);
 
     elapsed = launch_pad_smem(initial_board, result, W, H, GEN);
-    printf("%.3f - %d\n", median(elapsed, GEN), memcmp(result, naive_result, size) == 0);
+    printf("%.3f - %d\n", median(elapsed, GEN), memcmp(result, cpu_result, size) == 0);
     free(elapsed);
 
     free(initial_board);
     free(result);
-    free(naive_result);
+    free(cpu_result);
     return 0;
 }
