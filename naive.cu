@@ -38,8 +38,8 @@ __global__ void naive_0(const unsigned char * const r_board, unsigned char * con
 }
 
 __host__ double* launch_naive(
-    const unsigned char *const initial_board,
-    unsigned char *const result,
+    const unsigned char * initial_board,
+    unsigned char * result,
     const dim3 block_size,
     const unsigned int tile_dim,
     const unsigned int width,
@@ -72,6 +72,8 @@ __host__ double* launch_naive(
         QueryPerformanceCounter(&end);
         time[i] = (double) (end.QuadPart - start.QuadPart) * 1000 / (double) freq.QuadPart;
     }
+
+    if (generations % 2 == 1) swap_pointer((void**) initial_board, (void**) result);
 
     CHECK(cudaMemcpy(result, board_a, size, cudaMemcpyDeviceToHost));
     CHECK(cudaFree(board_a));

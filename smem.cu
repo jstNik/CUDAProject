@@ -81,8 +81,8 @@ __global__ void smem(const unsigned char * const r_board, unsigned char * const 
 }
 
 __host__ double* launch_smem(
-    const unsigned char *const initial_board,
-    unsigned char *const result,
+    const unsigned char * initial_board,
+    unsigned char * result,
     const unsigned int width,
     const unsigned int height,
     const unsigned int generations
@@ -115,6 +115,8 @@ __host__ double* launch_smem(
         QueryPerformanceCounter(&end);
         time[i] = (double) (end.QuadPart - start.QuadPart) * 1000 / (double) freq.QuadPart;
     }
+
+    if (generations % 2 == 1) swap_pointer((void**) initial_board, (void**) result);
 
     CHECK(cudaMemcpy(result, board_a, size, cudaMemcpyDeviceToHost));
     CHECK(cudaFree(board_a));

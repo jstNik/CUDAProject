@@ -7,15 +7,15 @@
 void launch_initialize(unsigned char *const result, const int seed, const unsigned int width,
                        const unsigned int height);
 
-double *launch_naive(const unsigned char *const initial_board, unsigned char *const result, const dim3 block_size,
+double *launch_naive(const unsigned char * initial_board, unsigned char * result, const dim3 block_size,
                      const unsigned int tile_dim, const unsigned int width, const unsigned int height,
                      const unsigned int generations);
 
-double *launch_smem(const unsigned char *const initial_board, unsigned char *const result,
+double *launch_smem(const unsigned char * initial_board, unsigned char * result,
                     const unsigned int width, const unsigned int height,
                     const unsigned int generations);
 
-double *launch_lin_smem(const unsigned char *const initial_board, unsigned char *const result,
+double *launch_lin_smem(const unsigned char * initial_board, unsigned char * result,
                         const unsigned int width, const unsigned int height,
                         const unsigned int generations);
 

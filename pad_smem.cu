@@ -35,8 +35,8 @@ __global__ void padding(
 }
 
 __global__ void pad_smem(
-    const unsigned char *const r_board,
-    unsigned char *const w_board,
+    unsigned char *const r_board,
+    unsigned char * w_board,
     const unsigned int width,
     const unsigned int height
 ) {
@@ -155,6 +155,8 @@ __host__ double* launch_pad_smem(
         QueryPerformanceCounter(&end);
         time[i] = (double) (end.QuadPart - start.QuadPart) * 1000 / (double) freq.QuadPart;
     }
+
+    if (generations % 2 == 1) swap_pointer((void**) initial_board, (void**) result);
 
     CHECK(cudaMemcpy2D(
         result,

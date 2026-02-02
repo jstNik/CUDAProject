@@ -67,7 +67,7 @@ __host__ __forceinline__ void set_default_pattern(unsigned char * const board, c
 
 }
 
-__host__ __forceinline__ double* launch_sequential(const unsigned char * const r_board, unsigned char * const w_board, const unsigned int width, const unsigned int height, const unsigned int generations) {
+__host__ __forceinline__ double* launch_sequential(const unsigned char * r_board, unsigned char *w_board, const unsigned int width, const unsigned int height, const unsigned int generations) {
 
     LARGE_INTEGER freq, start, end;
     QueryPerformanceFrequency(&freq);
@@ -98,5 +98,6 @@ __host__ __forceinline__ double* launch_sequential(const unsigned char * const r
         QueryPerformanceCounter(&end);
         time[g] = (double) (end.QuadPart - start.QuadPart) * 1000 / (double) freq.QuadPart;
     }
+    if (generations % 2 == 1) swap_pointer((void**) r_board, (void**) w_board);
     return time;
 }
