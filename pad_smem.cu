@@ -10,6 +10,7 @@ __global__ void padding(
     const unsigned int height
 ) {
 
+    // Lasciamo che un solo thread si occupi degli angoli
     if (threadIdx.x == 0 && blockIdx.x == 0) {
         board[0] = board[width * (height - 1) - 2];
         board[width - 1] = board[width * (height - 2) + 1];
@@ -22,11 +23,13 @@ __global__ void padding(
     for (unsigned int i = 0; i < steps; i += blockDim.x) {
         const unsigned int tx = threadIdx.x + i + blockIdx.x * TILE_DIM;
 
+        // Aggiornamento del padding orizzontale
         if (tx > 0 && tx < width - 1) {
             board[tx] = board[tx + width * (height - 2)];
             board[width * (height - 1) + tx] = board[tx + width];
         }
 
+        // Aggiornamento del padding verticale
         if (tx > 0 && tx < height - 1) {
             board[tx * width] = board[(tx + 1) * width - 2];
             board[(tx + 1) * width - 1] = board[tx * width + 1];
@@ -43,20 +46,18 @@ __global__ void pad_smem(
 
     __shared__ unsigned char smem[TILE_DIM + 2][TILE_DIM + 2];
 
-    // Se fuori dal limite, si ritorna
-    // if (gx > width - 2 || gy > height - 2) return;
-
     constexpr unsigned int p_tile_dim = (TILE_DIM + 2) * (TILE_DIM + 2);
 
     const unsigned int steps = (p_tile_dim + blockDim.x * blockDim.y - 1) / (blockDim.x * blockDim.y) * blockDim.y;
 
     for (unsigned int i = 0; i < steps; i += blockDim.y) {
 
+        // Calcolo indici globali
         const unsigned int lx = threadIdx.x + blockDim.x * blockIdx.x;
         const unsigned int ly = threadIdx.y + i + TILE_DIM * blockIdx.y;
         const unsigned int l_idx = lx + ly * width;
 
-
+        // Calcolo indici smem
         const unsigned int sy = threadIdx.y + i;
         const unsigned int sx = threadIdx.x;
 

@@ -11,18 +11,21 @@ __global__ void lin_smem(const unsigned char * const r_board, unsigned char * co
 
     __shared__ unsigned char smem[TILE_DIM + 2][TILE_DIM + 2];
 
-    // Se fuori dal limite, si ritorna
-
     constexpr unsigned int p_tile_dim = (TILE_DIM + 2) * (TILE_DIM + 2);
     const unsigned int steps = (p_tile_dim + blockDim.x * blockDim.y - 1) / (blockDim.x * blockDim.y) * blockDim.y;
 
     for (unsigned int i = 0; i < steps; i += blockDim.y) {
+
+        // Indice linearizzato
         const unsigned int l_idx = threadIdx.x + blockDim.x * (threadIdx.y + i);
 
         const unsigned int w = width < TILE_DIM ? width + 2 : TILE_DIM + 2;
 
+        // Calcolo indici in smem
         const unsigned int ly = l_idx / w;
         const unsigned int lx = l_idx - ly * w;
+
+        // Calcolo indici in memoria globale
         const unsigned int gx_to_load = (blockIdx.x * blockDim.x + lx - 1 + width) % width;
         const unsigned int gy_to_load = (blockIdx.y * TILE_DIM + ly - 1 + height) % height;
         const unsigned int g_to_load = gx_to_load + gy_to_load * width;

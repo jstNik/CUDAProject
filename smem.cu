@@ -29,6 +29,7 @@ __global__ void smem(const unsigned char * const r_board, unsigned char * const 
         const unsigned int toroid_y_plus_1 = (y + 1) % height * width;
         const unsigned int toroid_y_minus_1 = (y - 1 + height) % height * width;
 
+        // Caricamento in smem degli angoli
         if (threadIdx.x == 0 && thread_y == 0)
             smem[0][0] = r_board[toroid_x_minus_1 + toroid_y_minus_1];
         if (threadIdx.x == 0 && (thread_y == TILE_DIM - 1 || y == height - 1))
@@ -38,6 +39,7 @@ __global__ void smem(const unsigned char * const r_board, unsigned char * const 
         if (threadIdx.x == blockDim.x - 1 && (thread_y == TILE_DIM - 1 || y == height - 1))
             smem[33][33] = r_board[toroid_x_plus_1 + toroid_y_plus_1];
 
+        // Caricamento in smem dei bordi
         if (threadIdx.x == 0)
             smem[thread_y + 1][0] = r_board[toroid_x_minus_1 + y * width];
         if (threadIdx.x == blockDim.x - 1)
